@@ -1,0 +1,62 @@
+<!--Aggregation , Exp Binding-->
+<mvc:View xmlns:mvc="sap.ui.core.mvc"  xmlns:core="sap.ui.core" 
+controllerName="tableAggregationBinding.controller.View1"
+xmlns:t="sap.ui.table"
+xmlns:f="sap.ui.layout.form"
+
+ xmlns="sap.m">
+ <Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+                <headerContent>
+                     <Button icon="sap-icon://delete" press="onDeleteData"></Button>
+                </headerContent>
+					<content >
+                    <t:Table  id="productDetails" cellClick="onClick" rows="{/products}" visibleRowCount="6" alternateRowColors="true" selectionMode="Single" rowSelectionChange="onRowClick">
+                        <t:columns>
+                            <t:Column>
+                                <Text text="Product ID"></Text>
+                                <t:template>
+                                    <Text  text="{product_id}"/>
+                                </t:template>
+                            </t:Column>
+                            <t:Column >
+                                <Text text="Product Name" ></Text>
+                                <t:template>
+                                    <Text text="{path:'product_name' , formatter: '.formatter.convertName'} "/>
+                                </t:template>
+                            </t:Column>
+                            <t:Column >
+                                <Text  text="Delivery Status"/>
+                                <t:template>
+                                    <Text text="{status}"/>
+                                </t:template>
+                            </t:Column>
+                            <t:Column >
+                                <Text  text="Expected Delivery"/>
+                                <t:template>
+                            <!--Expression Binding-->
+                                    <Text text="{= ${status} === 'Deliverd' ? 'Product Deliverd' : ${Expected_Deliverey}}"/>
+                                </t:template>
+                            </t:Column>
+                        </t:columns>
+                    </t:Table>
+
+                    <!--Simple form-->
+                    <f:SimpleForm  id="productForm">
+                        <f:content>
+                            <Label text="ID" />
+                            <Input id="prodId" value="{product_id}" width="150px" />
+                            <Label text="Product Name"/>
+                            <Input id="prodName" value="{product_name}" width="150px" />
+                            <Label text="Status" />
+                            <Input id="prodStatus" value="{status}" width="150px" />
+                        </f:content>
+                    </f:SimpleForm>
+                    </content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
